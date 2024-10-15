@@ -4,7 +4,12 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import lpII.dto.veiculo.VeiculoNovoDTO;
+import lpII.exception.VeiculoNotFoundException;
+import lpII.model.CarroEntity;
+import lpII.model.VeiculoEntity;
 import org.modelmapper.ModelMapper;
+
+import java.util.List;
 
 @ApplicationScoped
 public class VeiculoService {
@@ -23,4 +28,14 @@ public class VeiculoService {
         return modelMapper.map(veiculo, VeiculoNovoDTO.class);
     }
 
+    public List<VeiculoEntity> listarTodosVeiculos(Integer page, Integer pageSize) {
+        return VeiculoEntity.findAll()
+                .page(page, pageSize)
+                .list();
+    }
+
+    public CarroEntity findCarroById(Long id) {
+        return (CarroEntity)VeiculoEntity.findByIdOptional(id)
+                .orElseThrow(VeiculoNotFoundException::new);
+    }
 }
