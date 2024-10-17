@@ -5,9 +5,11 @@ import io.smallrye.common.annotation.Blocking;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import lpII.dto.veiculo.MotoNovaDTO;
 import lpII.dto.veiculo.CarroNovoDTO;
 import lpII.dto.veiculo.VeiculoNovoDTO;
 import lpII.model.CarroEntity;
+import lpII.model.MotoEntity;
 import lpII.service.VeiculoService;
 
 @Path("/veiculo")
@@ -33,6 +35,12 @@ public class VeiculoController {
     @Path("/cadastrar-carro")
     public Response cadastrarCarro(CarroNovoDTO carroNovoDTO) {
         return novoVeiculo(carroNovoDTO, CarroEntity.class);
+    }
+
+    @POST
+    @Path("/cadastrar-moto")
+    public Response cadastrarMoto(MotoNovaDTO motoNovaDTO) {
+        return novoVeiculo(motoNovaDTO, MotoEntity.class);
     }
 
     @GET
