@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import lpII.dto.veiculo.VeiculoNovoDTO;
 import lpII.exception.VeiculoNotFoundException;
 import lpII.model.CarroEntity;
+import lpII.model.MotoEntity;
 import lpII.model.VeiculoEntity;
 import org.modelmapper.ModelMapper;
 
@@ -36,6 +37,11 @@ public class VeiculoService {
 
     public CarroEntity findCarroById(Long id) {
         return (CarroEntity)VeiculoEntity.findByIdOptional(id)
+                .orElseThrow(VeiculoNotFoundException::new);
+    }
+
+    public MotoEntity findMotoById(Long id) {
+        return (MotoEntity)VeiculoEntity.findByIdOptional(id)
                 .orElseThrow(VeiculoNotFoundException::new);
     }
 }
