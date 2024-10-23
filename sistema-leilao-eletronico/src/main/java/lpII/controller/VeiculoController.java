@@ -5,9 +5,11 @@ import io.smallrye.common.annotation.Blocking;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import lpII.dto.veiculo.CaminhaoNovoDTO;
 import lpII.dto.veiculo.MotoNovaDTO;
 import lpII.dto.veiculo.CarroNovoDTO;
 import lpII.dto.veiculo.VeiculoNovoDTO;
+import lpII.model.CaminhaoEntity;
 import lpII.model.CarroEntity;
 import lpII.model.MotoEntity;
 import lpII.service.VeiculoService;
@@ -62,6 +64,12 @@ public class VeiculoController {
     @Path("/moto/{id}")
     public Response findMotoById(@PathParam("id") Long id) {
         return Response.ok(veiculoService.findMotoById(id)).build();
+    }
+
+    @POST
+    @Path("/cadastrar-caminhao")
+    public Response cadastrarCaminhao(CaminhaoNovoDTO caminhaoNovoDTO) {
+        return novoVeiculo(caminhaoNovoDTO, CaminhaoEntity.class);
     }
 
 }
