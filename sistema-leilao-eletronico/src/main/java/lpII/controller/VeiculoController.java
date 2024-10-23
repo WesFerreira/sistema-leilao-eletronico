@@ -72,4 +72,10 @@ public class VeiculoController {
         return novoVeiculo(caminhaoNovoDTO, CaminhaoEntity.class);
     }
 
+    @GET
+    @Path("/caminhao/{id}")
+    public Response findCaminhao(@PathParam("id") Long id) {
+        return Response.ok(veiculoService.findCaminhaoById(id)).build();
+    }
+
 }

@@ -5,6 +5,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import lpII.dto.veiculo.VeiculoNovoDTO;
 import lpII.exception.VeiculoNotFoundException;
+import lpII.model.CaminhaoEntity;
 import lpII.model.CarroEntity;
 import lpII.model.MotoEntity;
 import lpII.model.VeiculoEntity;
@@ -42,6 +43,11 @@ public class VeiculoService {
 
     public MotoEntity findMotoById(Long id) {
         return (MotoEntity)VeiculoEntity.findByIdOptional(id)
+                .orElseThrow(VeiculoNotFoundException::new);
+    }
+
+    public CaminhaoEntity findCaminhaoById(Long id) {
+        return (CaminhaoEntity) VeiculoEntity.findByIdOptional(id)
                 .orElseThrow(VeiculoNotFoundException::new);
     }
 }
