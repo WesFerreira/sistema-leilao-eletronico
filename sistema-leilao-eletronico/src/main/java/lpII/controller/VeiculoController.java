@@ -9,9 +9,9 @@ import lpII.dto.veiculo.CaminhaoNovoDTO;
 import lpII.dto.veiculo.MotoNovaDTO;
 import lpII.dto.veiculo.CarroNovoDTO;
 import lpII.dto.veiculo.VeiculoNovoDTO;
-import lpII.model.CaminhaoEntity;
-import lpII.model.CarroEntity;
-import lpII.model.MotoEntity;
+import lpII.model.veiculo.CaminhaoEntity;
+import lpII.model.veiculo.CarroEntity;
+import lpII.model.veiculo.MotoEntity;
 import lpII.service.VeiculoService;
 
 @Path("/veiculo")

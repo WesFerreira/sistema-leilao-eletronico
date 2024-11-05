@@ -1,4 +1,4 @@
-package lpII.model;
+package lpII.model.veiculo;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
