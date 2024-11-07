@@ -1,26 +1,24 @@
-package lpII.model.veiculo;
+package lpII.model;
+
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.Data;
-import lpII.dto.veiculo.CarroNovoDTO;
+import lpII.dto.veiculo.CaminhaoNovoDTO;
 import lpII.dto.veiculo.VeiculoNovoDTO;
 import org.modelmapper.ModelMapper;
 
 @Data
 @Entity
-@DiscriminatorValue("CARRO")
-public class CarroEntity extends VeiculoEntity {
+@DiscriminatorValue("CAMINHAO")
+public class CaminhaoEntity extends VeiculoEntity {
 
-    public String tipo;
-    public Integer qtdPorta;
-
-    public CarroEntity() {
-    }
+    public Integer capacidadeCarga;
+    public Integer numeroEixos;
 
     @Override
     public VeiculoNovoDTO toDTO() {
         ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(this, CarroNovoDTO.class);
+        return modelMapper.map(this, CaminhaoNovoDTO.class);
     }
 }
