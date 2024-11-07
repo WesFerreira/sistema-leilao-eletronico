@@ -4,7 +4,12 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import lpII.dto.dispositivo.DispositivoNovoDTO;
+import lpII.exception.DispositivoNotFoundExceptio;
+import lpII.model.DispositivoEntity;
+import lpII.model.MonitorEntity;
 import org.modelmapper.ModelMapper;
+
+import java.util.List;
 
 @ApplicationScoped
 public class DispositivoService {
@@ -23,4 +28,14 @@ public class DispositivoService {
         return modelMapper.map(dispositivo, DispositivoNovoDTO.class);
     }
 
+    public List<DispositivoEntity> listarTodosDispositivos(Integer page, Integer pageSize) {
+        return DispositivoEntity.findAll()
+                .page(page, pageSize)
+                .list();
+    }
+
+    public MonitorEntity findMonitorById(Long id) {
+        return (MonitorEntity) DispositivoEntity.findByIdOptional(id)
+                .orElseThrow(DispositivoNotFoundExceptio::new);
+    }
 }
