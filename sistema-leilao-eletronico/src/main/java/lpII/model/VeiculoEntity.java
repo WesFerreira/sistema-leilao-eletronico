@@ -1,4 +1,4 @@
-package lpII.model.veiculo;
+package lpII.model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;

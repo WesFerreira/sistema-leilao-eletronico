@@ -5,10 +5,10 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import lpII.dto.veiculo.VeiculoNovoDTO;
 import lpII.exception.VeiculoNotFoundException;
-import lpII.model.veiculo.CaminhaoEntity;
-import lpII.model.veiculo.CarroEntity;
-import lpII.model.veiculo.MotoEntity;
-import lpII.model.veiculo.VeiculoEntity;
+import lpII.model.CaminhaoEntity;
+import lpII.model.CarroEntity;
+import lpII.model.MotoEntity;
+import lpII.model.VeiculoEntity;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public class VeiculoService {
 
     private final ModelMapper modelMapper;
 
-    public VeiculoService() {
+    public VeiculoService(ModelMapper modelMapper) {
         this.modelMapper = new ModelMapper();
     }
 

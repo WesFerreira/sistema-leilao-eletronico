@@ -1,9 +1,9 @@
-package lpII.model.dispositivo;
+package lpII.model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import lombok.Data;
-import lpII.dto.veiculo.VeiculoNovoDTO;
+import lpII.dto.dispositivo.DispositivoNovoDTO;
 
 import java.math.BigDecimal;
 
@@ -25,6 +25,6 @@ public abstract class DispositivoEntity extends PanacheEntityBase {
     public DispositivoEntity() {
     }
 
-    public abstract VeiculoNovoDTO toDTO();
+    public abstract DispositivoNovoDTO toDTO();
 
 }
