@@ -2,10 +2,7 @@ package lpII.controller;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import io.smallrye.common.annotation.Blocking;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lpII.dto.dispositivo.DispositivoNovoDTO;
@@ -34,10 +31,23 @@ public class DispositivoController {
         }
     }
 
+    @GET
+    public Response todosDispositivos(@QueryParam("page") @DefaultValue("0") Integer page,
+                                  @QueryParam("pageSize") @DefaultValue("10") Integer pageSize) {
+        var dispositivos = dispositivoService.listarTodosDispositivos(page, pageSize);
+        return Response.ok(dispositivos).build();
+    }
+
     @POST
     @Path("/cadastrar-monitor")
     public Response cadastrarMonitor(MonitorNovoDTO monitorNovoDTO) {
         return novoDispositivo(monitorNovoDTO, MonitorEntity.class);
+    }
+
+    @GET
+    @Path("/monitor/{id}")
+    public Response findMonitorById(@PathParam("id") Long id) {
+        return Response.ok(dispositivoService.findMonitorById(id)).build();
     }
 
 }
