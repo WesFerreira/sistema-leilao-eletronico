@@ -7,7 +7,9 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lpII.dto.dispositivo.DispositivoNovoDTO;
 import lpII.dto.dispositivo.MonitorNovoDTO;
+import lpII.dto.dispositivo.NotebookNovoDTO;
 import lpII.model.MonitorEntity;
+import lpII.model.NotebookEntity;
 import lpII.service.DispositivoService;
 
 @Path("/dispositivo")
@@ -48,6 +50,12 @@ public class DispositivoController {
     @Path("/monitor/{id}")
     public Response findMonitorById(@PathParam("id") Long id) {
         return Response.ok(dispositivoService.findMonitorById(id)).build();
+    }
+
+    @POST
+    @Path("/cadastrar-notebook")
+    public Response cadastrarNotebook(NotebookNovoDTO notebookNovoDTO) {
+        return novoDispositivo(notebookNovoDTO, NotebookEntity.class);
     }
 
 }
