@@ -7,6 +7,7 @@ import lpII.dto.dispositivo.DispositivoNovoDTO;
 import lpII.exception.DispositivoNotFoundExceptio;
 import lpII.model.DispositivoEntity;
 import lpII.model.MonitorEntity;
+import lpII.model.NotebookEntity;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;
@@ -38,4 +39,9 @@ public class DispositivoService {
         return (MonitorEntity) DispositivoEntity.findByIdOptional(id)
                 .orElseThrow(DispositivoNotFoundExceptio::new);
     }
+    public NotebookEntity findNotebookById(Long id) {
+        return (NotebookEntity) DispositivoEntity.findByIdOptional(id)
+                .orElseThrow(DispositivoNotFoundExceptio::new);
+    }
+
 }

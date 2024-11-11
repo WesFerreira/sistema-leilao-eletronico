@@ -57,5 +57,10 @@ public class DispositivoController {
     public Response cadastrarNotebook(NotebookNovoDTO notebookNovoDTO) {
         return novoDispositivo(notebookNovoDTO, NotebookEntity.class);
     }
+    @GET
+    @Path("/notebook/{id}")
+    public Response findNotebookById(@PathParam("id") Long id) {
+        return Response.ok(dispositivoService.findNotebookById(id)).build();
+    }
 
 }
