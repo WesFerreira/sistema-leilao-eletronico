@@ -5,9 +5,11 @@ import io.smallrye.common.annotation.Blocking;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import lpII.dto.dispositivo.CelularNovoDTO;
 import lpII.dto.dispositivo.DispositivoNovoDTO;
 import lpII.dto.dispositivo.MonitorNovoDTO;
 import lpII.dto.dispositivo.NotebookNovoDTO;
+import lpII.model.CelularEntity;
 import lpII.model.MonitorEntity;
 import lpII.model.NotebookEntity;
 import lpII.service.DispositivoService;
@@ -61,6 +63,12 @@ public class DispositivoController {
     @Path("/notebook/{id}")
     public Response findNotebookById(@PathParam("id") Long id) {
         return Response.ok(dispositivoService.findNotebookById(id)).build();
+    }
+
+    @POST
+    @Path("/cadastrar-celular")
+    public Response cadastrarCelular(CelularNovoDTO celularNovoDTO) {
+        return novoDispositivo(celularNovoDTO, CelularEntity.class);
     }
 
 }
