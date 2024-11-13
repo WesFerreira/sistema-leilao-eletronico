@@ -71,4 +71,10 @@ public class DispositivoController {
         return novoDispositivo(celularNovoDTO, CelularEntity.class);
     }
 
+    @GET
+    @Path("/celular/{id}")
+    public Response findCelularById(@PathParam("id") Long id) {
+        return Response.ok(dispositivoService.findCelularById(id)).build();
+    }
+
 }
