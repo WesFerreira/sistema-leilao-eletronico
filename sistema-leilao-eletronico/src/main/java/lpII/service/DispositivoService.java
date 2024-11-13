@@ -5,6 +5,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import lpII.dto.dispositivo.DispositivoNovoDTO;
 import lpII.exception.DispositivoNotFoundExceptio;
+import lpII.model.CelularEntity;
 import lpII.model.DispositivoEntity;
 import lpII.model.MonitorEntity;
 import lpII.model.NotebookEntity;
@@ -44,4 +45,8 @@ public class DispositivoService {
                 .orElseThrow(DispositivoNotFoundExceptio::new);
     }
 
+    public CelularEntity findCelularById(Long id) {
+        return (CelularEntity) DispositivoEntity.findByIdOptional(id)
+                .orElseThrow(DispositivoNotFoundExceptio::new);
+    }
 }
