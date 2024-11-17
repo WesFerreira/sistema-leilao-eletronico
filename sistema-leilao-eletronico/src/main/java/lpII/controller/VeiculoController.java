@@ -12,6 +12,7 @@ import lpII.dto.veiculo.VeiculoNovoDTO;
 import lpII.model.CaminhaoEntity;
 import lpII.model.CarroEntity;
 import lpII.model.MotoEntity;
+import lpII.model.VeiculoEntity;
 import lpII.service.VeiculoService;
 
 @Path("/veiculo")
@@ -51,6 +52,13 @@ public class VeiculoController {
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+    }
+
+    @DELETE
+    @Path("{id}")
+    public Response deletarVeiculo(@PathParam("id") Long id) {
+        veiculoService.deletarVeiculo(id);
+        return Response.noContent().build();
     }
 
     @POST
