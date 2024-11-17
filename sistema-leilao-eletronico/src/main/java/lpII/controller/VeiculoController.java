@@ -42,6 +42,15 @@ public class VeiculoController {
         return Response.ok(veiculos).build();
     }
 
+    private Response atualizarVeiculo(Long id, VeiculoNovoDTO veiculoNovoDTO, Class<? extends PanacheEntityBase> entityClass) {
+        VeiculoNovoDTO veiculoAtualizado = veiculoService.atualizarVeiculo(id, veiculoNovoDTO, entityClass);
+        if (veiculoAtualizado != null) {
+            return Response.ok(veiculoAtualizado).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
     @POST
     @Path("/cadastrar-carro")
     public Response cadastrarCarro(CarroNovoDTO carroNovoDTO) {
@@ -52,6 +61,12 @@ public class VeiculoController {
     @Path("/carro/{id}")
     public Response findCarroById(@PathParam("id") Long id) {
         return Response.ok(veiculoService.findCarroById(id)).build();
+    }
+
+    @PUT
+    @Path("/atualizar-carro/{id}")
+    public Response atualizarCarro(@PathParam("id") Long id, CarroNovoDTO carroNovoDTO) {
+        return atualizarVeiculo(id, carroNovoDTO, CarroEntity.class);
     }
 
     @POST
@@ -66,6 +81,12 @@ public class VeiculoController {
         return Response.ok(veiculoService.findMotoById(id)).build();
     }
 
+    @PUT
+    @Path("/atualizar-moto/{id}")
+    public Response atualizarMotocicleta(@PathParam("id") Long id, MotoNovaDTO motoNovaDTO) {
+        return atualizarVeiculo(id, motoNovaDTO, MotoEntity.class);
+    }
+
     @POST
     @Path("/cadastrar-caminhao")
     public Response cadastrarCaminhao(CaminhaoNovoDTO caminhaoNovoDTO) {
@@ -76,6 +97,12 @@ public class VeiculoController {
     @Path("/caminhao/{id}")
     public Response findCaminhao(@PathParam("id") Long id) {
         return Response.ok(veiculoService.findCaminhaoById(id)).build();
+    }
+
+    @PUT
+    @Path("/atualizar-caminhao/{id}")
+    public Response atualizarCaminhao(@PathParam("id") Long id, CaminhaoNovoDTO caminhaoNovoDTO) {
+        return atualizarVeiculo(id, caminhaoNovoDTO, CaminhaoEntity.class);
     }
 
 }

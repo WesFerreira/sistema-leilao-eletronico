@@ -2,6 +2,8 @@ package lpII.service;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import lpII.dto.veiculo.VeiculoNovoDTO;
 import lpII.exception.VeiculoNotFoundException;
@@ -16,6 +18,8 @@ import java.util.List;
 @ApplicationScoped
 public class VeiculoService {
 
+    @PersistenceContext
+    EntityManager entityManager;
     private final ModelMapper modelMapper;
 
     public VeiculoService(ModelMapper modelMapper) {
@@ -49,5 +53,21 @@ public class VeiculoService {
     public CaminhaoEntity findCaminhaoById(Long id) {
         return (CaminhaoEntity) VeiculoEntity.findByIdOptional(id)
                 .orElseThrow(VeiculoNotFoundException::new);
+    }
+
+    @Transactional
+    public <T extends PanacheEntityBase> VeiculoNovoDTO atualizarVeiculo(Long id,
+                                                                         VeiculoNovoDTO veiculoNovoDTO,
+                                                                         Class<T> entityClass) {
+
+        T veiculo = entityManager.find(entityClass, id);
+        if (veiculo != null) {
+            modelMapper.map(veiculoNovoDTO, veiculo);
+            veiculo.persist();
+            return modelMapper.map(veiculo, VeiculoNovoDTO.class);
+        } else {
+            return null;
+        }
+
     }
 }
