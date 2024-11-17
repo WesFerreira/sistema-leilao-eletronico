@@ -70,4 +70,10 @@ public class VeiculoService {
         }
 
     }
+
+    @Transactional
+    public void deletarVeiculo(Long id) {
+        VeiculoEntity.deleteById(id);
+    }
+
 }
