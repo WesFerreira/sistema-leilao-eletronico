@@ -53,6 +53,13 @@ public class DispositivoController {
         }
     }
 
+    @DELETE
+    @Path("{id}")
+    public Response deletarDispositivo(@PathParam("id") Long id) {
+        dispositivoService.deletarDispositivo(id);
+        return Response.noContent().build();
+    }
+
     @POST
     @Path("/cadastrar-monitor")
     public Response cadastrarMonitor(MonitorNovoDTO monitorNovoDTO) {

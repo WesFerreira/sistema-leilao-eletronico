@@ -68,4 +68,9 @@ public class DispositivoService {
             return null;
         }
     }
+
+    @Transactional
+    public void deletarDispositivo(Long id) {
+        DispositivoEntity.deleteById(id);
+    }
 }
