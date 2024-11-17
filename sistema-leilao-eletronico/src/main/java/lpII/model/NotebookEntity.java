@@ -14,10 +14,8 @@ public class NotebookEntity extends DispositivoEntity {
 
     private String fabricante;
     private String processador;
-    private Double tamanhoTela;
-    private String memoria;
+    private String tamanhoTela;
     private String memoriaRAM;
-    private String peso;
 
     public NotebookEntity() {
 

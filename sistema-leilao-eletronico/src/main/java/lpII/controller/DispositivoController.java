@@ -42,6 +42,17 @@ public class DispositivoController {
         return Response.ok(dispositivos).build();
     }
 
+    private Response atualizarDispositivo(Long id,
+                                          DispositivoNovoDTO dispositivoNovoDTO,
+                                          Class<? extends PanacheEntityBase> entityClass) {
+        DispositivoNovoDTO dispositvoAtualizado = dispositivoService.atualizarDispositivo(id, dispositivoNovoDTO, entityClass);
+        if (dispositvoAtualizado != null) {
+            return Response.ok(dispositvoAtualizado).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
     @POST
     @Path("/cadastrar-monitor")
     public Response cadastrarMonitor(MonitorNovoDTO monitorNovoDTO) {
@@ -54,15 +65,28 @@ public class DispositivoController {
         return Response.ok(dispositivoService.findMonitorById(id)).build();
     }
 
+    @PUT
+    @Path("/atualizar-monitor/{id}")
+    public Response atualizarMonitor(@PathParam("id") Long id, MonitorNovoDTO monitorNovoDTO) {
+        return atualizarDispositivo(id, monitorNovoDTO, MonitorEntity.class);
+    }
+
     @POST
     @Path("/cadastrar-notebook")
     public Response cadastrarNotebook(NotebookNovoDTO notebookNovoDTO) {
         return novoDispositivo(notebookNovoDTO, NotebookEntity.class);
     }
+
     @GET
     @Path("/notebook/{id}")
     public Response findNotebookById(@PathParam("id") Long id) {
         return Response.ok(dispositivoService.findNotebookById(id)).build();
+    }
+
+    @PUT
+    @Path("/atualizar-notebook/{id}")
+    public Response atualizarNotebook(@PathParam("id") Long id, NotebookNovoDTO notebookNovoDTO) {
+        return atualizarDispositivo(id, notebookNovoDTO, NotebookEntity.class);
     }
 
     @POST
@@ -75,6 +99,12 @@ public class DispositivoController {
     @Path("/celular/{id}")
     public Response findCelularById(@PathParam("id") Long id) {
         return Response.ok(dispositivoService.findCelularById(id)).build();
+    }
+
+    @PUT
+    @Path("/atualizar-celular/{id}")
+    public Response atualizarCelular(@PathParam("id") Long id, CelularNovoDTO celularNovoDTO) {
+        return atualizarDispositivo(id, celularNovoDTO, CelularEntity.class);
     }
 
 }

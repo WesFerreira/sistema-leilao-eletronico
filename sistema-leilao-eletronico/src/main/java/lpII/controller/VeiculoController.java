@@ -42,7 +42,9 @@ public class VeiculoController {
         return Response.ok(veiculos).build();
     }
 
-    private Response atualizarVeiculo(Long id, VeiculoNovoDTO veiculoNovoDTO, Class<? extends PanacheEntityBase> entityClass) {
+    private Response atualizarVeiculo(Long id,
+                                      VeiculoNovoDTO veiculoNovoDTO,
+                                      Class<? extends PanacheEntityBase> entityClass) {
         VeiculoNovoDTO veiculoAtualizado = veiculoService.atualizarVeiculo(id, veiculoNovoDTO, entityClass);
         if (veiculoAtualizado != null) {
             return Response.ok(veiculoAtualizado).build();
