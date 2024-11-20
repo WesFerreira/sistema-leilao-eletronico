@@ -50,4 +50,10 @@ public class LeilaoService {
     public LeilaoEntity buscarLeilaoId(Long id) {
         return LeilaoEntity.findById(id);
     }
+
+    @Transactional
+    public void deletarLeilao(Long id) {
+        LeilaoEntity.deleteById(id);
+    }
+
 }

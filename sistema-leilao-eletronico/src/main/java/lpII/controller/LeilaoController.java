@@ -39,4 +39,11 @@ public class LeilaoController {
         return leilaoService.buscarLeilaoId(id);
     }
 
+    @DELETE
+    @Path("{id}")
+    public Response deletarLeilao(@PathParam("id") Long id) {
+        leilaoService.deletarLeilao(id);
+        return Response.noContent().build();
+    }
+
 }

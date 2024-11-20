@@ -28,14 +28,14 @@ public class LeilaoEntity extends PanacheEntityBase {
     private LocalDateTime dataVisita;
     private List<Long> instituicaoFinId;
 
-    public LeilaoEntity(LeilaoNovoDTO cadastro){
-        this.dataInicio = cadastro.getDataInicio();
-        this.dataFim = cadastro.getDataFim();
-        this.dataVisita = cadastro.getDataVisita();
-        this.endereco = cadastro.getEndereco();
-        this.cidade = cadastro.getCidade();
-        this.estado = cadastro.getEstado();
-        this.instituicaoFinId = cadastro.getInstituicaoFinId();
+    public LeilaoEntity(LeilaoNovoDTO leilaoNovo){
+        this.dataInicio = leilaoNovo.getDataInicio();
+        this.dataFim = leilaoNovo.getDataFim();
+        this.dataVisita = leilaoNovo.getDataVisita();
+        this.endereco = leilaoNovo.getEndereco();
+        this.cidade = leilaoNovo.getCidade();
+        this.estado = leilaoNovo.getEstado();
+        this.instituicaoFinId = leilaoNovo.getInstituicaoFinId();
         this.status = StatusLeilao.statusLeilao(LocalDateTime.now(), this);
     }
 }
