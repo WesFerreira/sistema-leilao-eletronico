@@ -42,4 +42,12 @@ public class LeilaoService {
             }
         }
     }
+
+    public List<LeilaoEntity> listarTodosLeiloes() {
+        return LeilaoEntity.listAll();
+    }
+
+    public LeilaoEntity buscarLeilaoId(Long id) {
+        return LeilaoEntity.findById(id);
+    }
 }
