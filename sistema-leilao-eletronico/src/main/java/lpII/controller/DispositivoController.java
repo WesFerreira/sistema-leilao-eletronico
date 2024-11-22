@@ -9,10 +9,13 @@ import lpII.dto.dispositivo.CelularNovoDTO;
 import lpII.dto.dispositivo.DispositivoNovoDTO;
 import lpII.dto.dispositivo.MonitorNovoDTO;
 import lpII.dto.dispositivo.NotebookNovoDTO;
+import lpII.exception.ApiException;
 import lpII.model.CelularEntity;
+import lpII.model.LeilaoEntity;
 import lpII.model.MonitorEntity;
 import lpII.model.NotebookEntity;
 import lpII.service.DispositivoService;
+import lpII.service.LeilaoService;
 
 @Path("/dispositivo")
 @Blocking
@@ -21,9 +24,12 @@ import lpII.service.DispositivoService;
 public class DispositivoController {
 
     private final DispositivoService dispositivoService;
+    private final LeilaoService leilaoService;
 
-    public DispositivoController(DispositivoService dispositivoService) {
+    public DispositivoController(DispositivoService dispositivoService,
+                                 LeilaoService leilaoService) {
         this.dispositivoService = dispositivoService;
+        this.leilaoService = leilaoService;
     }
 
     private Response novoDispositivo(DispositivoNovoDTO dispositivoDTO, Class<? extends PanacheEntityBase> entityClass) {
@@ -63,7 +69,12 @@ public class DispositivoController {
     @POST
     @Path("/cadastrar-monitor")
     public Response cadastrarMonitor(MonitorNovoDTO monitorNovoDTO) {
-        return novoDispositivo(monitorNovoDTO, MonitorEntity.class);
+        LeilaoEntity leilao = leilaoService.buscarLeilaoId(monitorNovoDTO.getIdLeilao());
+        if (leilao == null) {
+            throw new ApiException("Id do Leilão não encontrado", Response.Status.NOT_FOUND);
+        } else {
+            return novoDispositivo(monitorNovoDTO, MonitorEntity.class);
+        }
     }
 
     @GET
@@ -81,7 +92,12 @@ public class DispositivoController {
     @POST
     @Path("/cadastrar-notebook")
     public Response cadastrarNotebook(NotebookNovoDTO notebookNovoDTO) {
-        return novoDispositivo(notebookNovoDTO, NotebookEntity.class);
+        LeilaoEntity leilao = leilaoService.buscarLeilaoId(notebookNovoDTO.getIdLeilao());
+        if (leilao == null) {
+            throw new ApiException("Id do Leilão não encontrado", Response.Status.NOT_FOUND);
+        } else {
+            return novoDispositivo(notebookNovoDTO, NotebookEntity.class);
+        }
     }
 
     @GET
@@ -99,7 +115,12 @@ public class DispositivoController {
     @POST
     @Path("/cadastrar-celular")
     public Response cadastrarCelular(CelularNovoDTO celularNovoDTO) {
-        return novoDispositivo(celularNovoDTO, CelularEntity.class);
+        LeilaoEntity leilao = leilaoService.buscarLeilaoId(celularNovoDTO.getIdLeilao());
+        if (leilao == null) {
+            throw new ApiException("Id do Leilão não encontrado", Response.Status.NOT_FOUND);
+        } else {
+            return novoDispositivo(celularNovoDTO, CelularEntity.class);
+        }
     }
 
     @GET

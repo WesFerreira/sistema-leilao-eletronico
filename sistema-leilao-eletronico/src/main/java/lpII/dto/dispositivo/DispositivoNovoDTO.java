@@ -12,6 +12,7 @@ public class DispositivoNovoDTO {
     private String marca;
     private Integer ano;
     private Integer quantidade;
+    private Long idLeilao;
     public BigDecimal valorInical;
 
 }

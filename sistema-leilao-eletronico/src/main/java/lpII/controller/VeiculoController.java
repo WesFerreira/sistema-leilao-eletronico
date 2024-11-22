@@ -5,14 +5,16 @@ import io.smallrye.common.annotation.Blocking;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import lpII.dto.leilao.LeilaoNovoDTO;
 import lpII.dto.veiculo.CaminhaoNovoDTO;
 import lpII.dto.veiculo.MotoNovaDTO;
 import lpII.dto.veiculo.CarroNovoDTO;
 import lpII.dto.veiculo.VeiculoNovoDTO;
-import lpII.model.CaminhaoEntity;
-import lpII.model.CarroEntity;
-import lpII.model.MotoEntity;
-import lpII.model.VeiculoEntity;
+import lpII.exception.ApiException;
+import lpII.exception.VeiculoNotFoundException;
+import lpII.exception.VeiculoNotFoundExceptionMapper;
+import lpII.model.*;
+import lpII.service.LeilaoService;
 import lpII.service.VeiculoService;
 
 @Path("/veiculo")
@@ -22,9 +24,12 @@ import lpII.service.VeiculoService;
 public class VeiculoController {
 
     private final VeiculoService veiculoService;
+    private final LeilaoService leilaoService;
 
-    public VeiculoController(VeiculoService veiculoService) {
+    public VeiculoController(VeiculoService veiculoService,
+                             LeilaoService leilaoService) {
         this.veiculoService = veiculoService;
+        this.leilaoService = leilaoService;
     }
 
     private Response novoVeiculo(VeiculoNovoDTO veiculoDTO, Class<? extends PanacheEntityBase> entityClass) {
@@ -63,8 +68,13 @@ public class VeiculoController {
 
     @POST
     @Path("/cadastrar-carro")
-    public Response cadastrarCarro(CarroNovoDTO carroNovoDTO) {
-        return novoVeiculo(carroNovoDTO, CarroEntity.class);
+    public Response cadastrarCarro(CarroNovoDTO carroNovoDTO) throws ApiException {
+        LeilaoEntity leilao = leilaoService.buscarLeilaoId(carroNovoDTO.getIdLeilao());
+        if (leilao == null) {
+            throw new ApiException("Id do Leilão não encontrado", Response.Status.NOT_FOUND);
+        } else {
+            return novoVeiculo(carroNovoDTO, CarroEntity.class);
+        }
     }
 
     @GET
@@ -81,8 +91,13 @@ public class VeiculoController {
 
     @POST
     @Path("/cadastrar-moto")
-    public Response cadastrarMoto(MotoNovaDTO motoNovaDTO) {
-        return novoVeiculo(motoNovaDTO, MotoEntity.class);
+    public Response cadastrarMoto(MotoNovaDTO motoNovaDTO) throws ApiException {
+        LeilaoEntity leilao = leilaoService.buscarLeilaoId(motoNovaDTO.getIdLeilao());
+        if (leilao == null) {
+            throw new ApiException("Id do Leilão não encontrado", Response.Status.NOT_FOUND);
+        } else {
+            return novoVeiculo(motoNovaDTO, MotoEntity.class);
+        }
     }
 
     @GET
@@ -99,8 +114,13 @@ public class VeiculoController {
 
     @POST
     @Path("/cadastrar-caminhao")
-    public Response cadastrarCaminhao(CaminhaoNovoDTO caminhaoNovoDTO) {
-        return novoVeiculo(caminhaoNovoDTO, CaminhaoEntity.class);
+    public Response cadastrarCaminhao(CaminhaoNovoDTO caminhaoNovoDTO) throws ApiException {
+        LeilaoEntity leilao = leilaoService.buscarLeilaoId(caminhaoNovoDTO.getIdLeilao());
+        if (leilao == null) {
+            throw new ApiException("Id do Leilão não encontrado", Response.Status.NOT_FOUND);
+        } else {
+            return novoVeiculo(caminhaoNovoDTO, CaminhaoEntity.class);
+        }
     }
 
     @GET
