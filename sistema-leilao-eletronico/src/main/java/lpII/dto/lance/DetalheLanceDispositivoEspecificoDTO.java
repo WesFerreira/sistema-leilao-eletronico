@@ -2,14 +2,14 @@ package lpII.dto.lance;
 
 import lombok.Data;
 import lpII.model.ClienteEntity;
-import lpII.model.VeiculoEntity;
+import lpII.model.DispositivoEntity;
 
 import java.math.BigDecimal;
 
 @Data
-public class DetalheLanceVeiculoEspecificoDTO {
+public class DetalheLanceDispositivoEspecificoDTO {
 
-    public VeiculoEntity veiculo;
+    public DispositivoEntity dispositivo;
     public ClienteEntity cliente;
     private BigDecimal lanceInicial;
 

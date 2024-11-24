@@ -4,6 +4,7 @@ import io.smallrye.common.annotation.Blocking;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import lpII.dto.lance.DetalheLanceDispositivoEspecificoDTO;
 import lpII.dto.lance.DetalheLanceVeiculoEspecificoDTO;
 import lpII.dto.lance.LanceNovoDispositivoDTO;
 import lpII.dto.lance.LanceNovoVeiculoDTO;
@@ -49,6 +50,12 @@ public class LanceController {
     @Path("buscar-lance-veiculo-especifico")
     public List<DetalheLanceVeiculoEspecificoDTO> detalheLanceVeiculoEspecifico(@QueryParam("id") Long idVeiculo) {
         return lanceService.detalheLanceVeiculoEspecifico(idVeiculo);
+    }
+
+    @GET
+    @Path("buscar-lance-dispositivo-especifico")
+    public List<DetalheLanceDispositivoEspecificoDTO> detalheLanceDispositivoEspecifico(@QueryParam("id") Long idDispositivo) {
+        return lanceService.detalheLanceDispositivoEspecifico(idDispositivo);
     }
 
 }

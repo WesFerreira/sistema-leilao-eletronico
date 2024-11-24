@@ -40,4 +40,8 @@ public class LanceEntity extends PanacheEntityBase {
         return find("veiculo.id", veiculoId).list();
     }
 
+    public static List<LanceEntity> findByDispositivoId(Long dispositivoId) {
+        return find("dispositivo.id", dispositivoId).list();
+    }
+
 }
