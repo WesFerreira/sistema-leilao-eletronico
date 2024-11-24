@@ -46,4 +46,10 @@ public class LeilaoController {
         return Response.noContent().build();
     }
 
+    @GET
+    @Path("ordenada-data-inicio")
+    public List<LeilaoEntity> leilaoOrdenadoDataIninio() {
+        return leilaoService.leilaoOrdenadoDataIninio();
+    }
+
 }
