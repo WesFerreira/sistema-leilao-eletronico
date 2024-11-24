@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -35,5 +36,12 @@ public class LanceEntity extends PanacheEntityBase {
     @JoinColumn(name = "Veiculoid")
     private VeiculoEntity veiculo;
 
+    public static List<LanceEntity> findByVeiculoId(Long veiculoId) {
+        return find("veiculo.id", veiculoId).list();
+    }
+
+    public static List<LanceEntity> findByDispositivoId(Long dispositivoId) {
+        return find("dispositivo.id", dispositivoId).list();
+    }
 
 }
