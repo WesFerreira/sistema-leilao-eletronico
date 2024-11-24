@@ -38,4 +38,9 @@ public class LeilaoEntity extends PanacheEntityBase {
         this.instituicaoFinId = leilaoNovo.getInstituicaoFinId();
         this.status = StatusLeilao.statusLeilao(LocalDateTime.now(), this);
     }
+
+    public static List<LeilaoEntity> findAllOrderedByDataInicio() {
+        return find("ORDER BY dataInicio").list();
+    }
+
 }

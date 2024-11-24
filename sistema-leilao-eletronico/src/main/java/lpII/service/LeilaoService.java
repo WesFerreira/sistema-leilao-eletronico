@@ -3,7 +3,6 @@ package lpII.service;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import lpII.dto.leilao.LeilaoNovoDTO;
-import lpII.enuns.Status;
 import lpII.model.InstituicaoFinanceiraEntity;
 import lpII.model.LeilaoEntity;
 import org.modelmapper.ModelMapper;
@@ -56,4 +55,7 @@ public class LeilaoService {
         LeilaoEntity.deleteById(id);
     }
 
+    public List<LeilaoEntity> leilaoOrdenadoDataIninio() {
+        return LeilaoEntity.findAllOrderedByDataInicio();
+    }
 }
