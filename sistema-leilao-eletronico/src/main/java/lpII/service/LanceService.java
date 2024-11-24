@@ -3,6 +3,7 @@ package lpII.service;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
+import lpII.dto.lance.DetalheLanceVeiculoEspecificoDTO;
 import lpII.dto.lance.LanceNovoDispositivoDTO;
 import lpII.dto.lance.LanceNovoVeiculoDTO;
 import lpII.exception.ApiException;
@@ -13,6 +14,7 @@ import lpII.model.VeiculoEntity;
 import org.modelmapper.ModelMapper;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
@@ -75,4 +77,22 @@ public class LanceService {
         return LanceEntity.listAll();
     }
 
+    public List<DetalheLanceVeiculoEspecificoDTO> detalheLanceVeiculoEspecifico(Long idVeiculo) {
+        List<DetalheLanceVeiculoEspecificoDTO> listDetalhes = new ArrayList<>();
+        List<LanceEntity> lances = LanceEntity.findByVeiculoId(idVeiculo);
+        if (lances.isEmpty()) {
+            throw new ApiException("Ainda não teve lances para esse veiculo", Response.Status.NOT_FOUND);
+        }
+
+        for (LanceEntity lance : lances) {
+            DetalheLanceVeiculoEspecificoDTO detalhe = new DetalheLanceVeiculoEspecificoDTO();
+            detalhe.setVeiculo(lance.getVeiculo());
+            detalhe.setCliente(lance.getCliente());
+            detalhe.setLanceInicial(lance.getLanceInicial());
+
+            listDetalhes.add(detalhe);
+        }
+
+        return listDetalhes;
+    }
 }
