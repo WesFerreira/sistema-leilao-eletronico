@@ -4,6 +4,7 @@ import io.smallrye.common.annotation.Blocking;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import lpII.dto.lance.LanceNovoDispositivoDTO;
 import lpII.dto.lance.LanceNovoVeiculoDTO;
 import lpII.model.LanceEntity;
 import lpII.service.LanceService;
@@ -23,13 +24,18 @@ public class LanceController {
     }
 
     @POST
-    @Path("vincular-veiculo")
-    public Response vincularLanceAoVeiculo(LanceNovoVeiculoDTO lanceNovoVeiculoDTO) {
-        LanceNovoVeiculoDTO lance = lanceService.vincularLanceAoVeiculo(lanceNovoVeiculoDTO);
+    @Path("lance-veiculo")
+    public Response lanceNovoVeiculo(LanceNovoVeiculoDTO lanceNovoVeiculoDTO) {
+        LanceNovoVeiculoDTO lance = lanceService.lanceNovoVeiculo(lanceNovoVeiculoDTO);
 
-        if (lance == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
+        return Response.status(Response.Status.OK).entity(lance).build();
+    }
+
+    @POST
+    @Path("lance-dispositivo")
+    public Response lanceNovoDispositivo(LanceNovoDispositivoDTO lanceNovoDispositivoDTO) {
+        LanceNovoDispositivoDTO lance = lanceService.lanceNovoDispositivo(lanceNovoDispositivoDTO);
+
         return Response.status(Response.Status.OK).entity(lance).build();
     }
 

@@ -3,9 +3,11 @@ package lpII.service;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
+import lpII.dto.lance.LanceNovoDispositivoDTO;
 import lpII.dto.lance.LanceNovoVeiculoDTO;
 import lpII.exception.ApiException;
 import lpII.model.ClienteEntity;
+import lpII.model.DispositivoEntity;
 import lpII.model.LanceEntity;
 import lpII.model.VeiculoEntity;
 import org.modelmapper.ModelMapper;
@@ -23,23 +25,43 @@ public class LanceService {
     }
 
     @Transactional
-    public LanceNovoVeiculoDTO vincularLanceAoVeiculo(LanceNovoVeiculoDTO lanceNovoVeiculoDTO) {
+    public LanceNovoVeiculoDTO lanceNovoVeiculo(LanceNovoVeiculoDTO lanceNovoVeiculoDTO) {
         VeiculoEntity veiculo = VeiculoEntity.findById(lanceNovoVeiculoDTO.getVeiculoId());
         ClienteEntity cliente = ClienteEntity.findById(lanceNovoVeiculoDTO.getClienteId());
 
-        validaDadosLance(veiculo == null, "Veículo com o id:", lanceNovoVeiculoDTO.getVeiculoId());
-        validaDadosLance(cliente == null, "Cliente com o id:", lanceNovoVeiculoDTO.getClienteId());
+        validaDadosLance(veiculo == null, "Veículo com o id: ", lanceNovoVeiculoDTO.getVeiculoId());
+        validaDadosLance(cliente == null, "Cliente com o id: ", lanceNovoVeiculoDTO.getClienteId());
 
         LanceEntity lance = new LanceEntity();
         lance.setDataHora(LocalDateTime.now());
         lance.setLanceInicial(lanceNovoVeiculoDTO.getLanceInicial());
         lance.setLanceAdicional(lanceNovoVeiculoDTO.getLanceAdicional());
-        lance.setVeiculo(veiculo);
         lance.setCliente(cliente);
+        lance.setVeiculo(veiculo);
 
         lance.persist();
 
         return modelMapper.map(lance, LanceNovoVeiculoDTO.class);
+    }
+
+    @Transactional
+    public LanceNovoDispositivoDTO lanceNovoDispositivo(LanceNovoDispositivoDTO lanceNovoDispositivoDTO) {
+        DispositivoEntity dispositivo = DispositivoEntity.findById(lanceNovoDispositivoDTO.getDispositivoId());
+        ClienteEntity cliente = ClienteEntity.findById(lanceNovoDispositivoDTO.getClienteId());
+
+        validaDadosLance(dispositivo == null, "Dispositivo com o id: ", lanceNovoDispositivoDTO.getDispositivoId());
+        validaDadosLance(cliente == null, "Cliente com o id: ", lanceNovoDispositivoDTO.getClienteId());
+
+        LanceEntity lance = new LanceEntity();
+        lance.setDataHora(LocalDateTime.now());
+        lance.setLanceInicial(lanceNovoDispositivoDTO.getLanceInicial());
+        lance.setLanceAdicional(lanceNovoDispositivoDTO.getLanceAdicional());
+        lance.setCliente(cliente);
+        lance.setDispositivo(dispositivo);
+
+        lance.persist();
+
+        return modelMapper.map(lance, LanceNovoDispositivoDTO.class);
     }
 
     private void validaDadosLance(boolean dadosLance, String x, Long lanceNovoVeiculoDTO) {
@@ -49,8 +71,8 @@ public class LanceService {
         }
     }
 
-
     public List<LanceEntity> listarLances() {
         return LanceEntity.listAll();
     }
+
 }
