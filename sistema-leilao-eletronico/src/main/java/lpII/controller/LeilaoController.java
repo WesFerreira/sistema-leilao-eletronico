@@ -4,6 +4,7 @@ import io.smallrye.common.annotation.Blocking;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import lpII.dto.leilao.DetalheLeilaoEspecificoDTO;
 import lpII.dto.leilao.LeilaoNovoDTO;
 import lpII.model.LeilaoEntity;
 import lpII.service.LeilaoService;
@@ -50,6 +51,12 @@ public class LeilaoController {
     @Path("ordenada-data-inicio")
     public List<LeilaoEntity> leilaoOrdenadoDataIninio() {
         return leilaoService.leilaoOrdenadoDataIninio();
+    }
+
+    @GET
+    @Path("buscar-detalhes-leilao-especifico")
+    public DetalheLeilaoEspecificoDTO buscarDetalhesLeilaoEspecifico(@QueryParam("id") Long idLeilao) {
+        return leilaoService.buscarDetalhesLeilaoEspecifico(idLeilao);
     }
 
 }
