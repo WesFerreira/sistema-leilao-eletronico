@@ -9,6 +9,7 @@ import lpII.exception.ApiException;
 import lpII.model.*;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +52,9 @@ public class ExportService {
         String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(detalheLeilao);
 
         File file = new File(filePath);
-        objectMapper.writeValue(file, detalheLeilao);
+        try (FileWriter writer = new FileWriter(file)) {
+            writer.write(json);
+        }
 
     }
 
