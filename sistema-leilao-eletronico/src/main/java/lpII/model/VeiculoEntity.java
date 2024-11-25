@@ -6,6 +6,7 @@ import lombok.Data;
 import lpII.dto.veiculo.VeiculoNovoDTO;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Data
@@ -25,6 +26,10 @@ public abstract class VeiculoEntity extends PanacheEntityBase {
     private BigDecimal valorInicial;
 
     public VeiculoEntity() {
+    }
+
+    public static List<VeiculoEntity> findByIdLeilaoOrdered(Long idLeilao) {
+        return find("idLeilao = ?1 ORDER BY modelo ASC", idLeilao).list();
     }
 
     public abstract VeiculoNovoDTO toDTO();
