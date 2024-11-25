@@ -64,6 +64,11 @@ public class LeilaoService {
 
     public DetalheLeilaoEspecificoDTO buscarDetalhesLeilaoEspecifico(Long idLeilao) {
         LeilaoEntity leilao = LeilaoEntity.findById(idLeilao);
+
+        if (leilao == null) {
+            throw new ApiException("Leilão não encontrado!", Response.Status.NOT_FOUND);
+        }
+
         List<VeiculoEntity> listVeiculos = VeiculoEntity.findByIdLeilaoOrdered(idLeilao);
         List<DispositivoEntity> listDispositivo = DispositivoEntity.findByIdLeilaoOrdered(idLeilao);
         Long qtdVeiculo = (long) listVeiculos.size();
