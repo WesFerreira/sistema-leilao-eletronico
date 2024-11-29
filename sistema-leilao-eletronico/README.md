@@ -1,18 +1,21 @@
 # sistema-leilao-eletronico
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
-
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+Projeto da matéria de Linguagem de programação 2
 
 ## Running the application in dev mode
 
 You can run your application in dev mode that enables live coding using:
 
 ```shell script
-./mvnw compile quarkus:dev
+mvn compile quarkus:dev
 ```
 
 > **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+
+## Documentação Swagger
+O projeto inclui uma documentação Swagger para facilitar o entendimento da API.Acesse a documentação Swagger em seu navegador:
+
+http://localhost:8080/swagger-ui/#/
 
 ## Packaging and running the application
 
