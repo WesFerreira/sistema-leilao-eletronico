@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import lombok.Data;
 import lpII.dto.dispositivo.DispositivoNovoDTO;
 import lpII.dto.dispositivo.MonitorNovoDTO;
-import lpII.model.DispositivoEntity;
 import org.modelmapper.ModelMapper;
 
 @Data
