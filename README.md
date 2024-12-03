@@ -2,15 +2,17 @@
 
 Projeto da matéria de Linguagem de programação 2
 
-## Running the application in dev mode
+## Requisitos
+Antes de executar o projeto, certifique se os seguintes requisitos estão instalados em sua máquina:
 
-You can run your application in dev mode that enables live coding using:
+  - **Java 17** ou uma versão compatível.
+  - **Maven 3.8.6** ou uma versão compatível.
+
+## Rodando aplicação no modo dev
 
 ```shell script
 mvn compile quarkus:dev
 ```
-
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
 
 ## Documentação Swagger
 O projeto inclui uma documentação Swagger para facilitar o entendimento da API.Acesse a documentação Swagger em seu navegador:
