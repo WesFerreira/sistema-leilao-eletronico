@@ -5,12 +5,13 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.core.Response;
 import lpII.dto.dispositivo.DispositivoNovoDTO;
+import lpII.exception.ApiException;
 import lpII.exception.DispositivoNotFoundExceptio;
-import lpII.model.CelularEntity;
-import lpII.model.DispositivoEntity;
-import lpII.model.MonitorEntity;
-import lpII.model.NotebookEntity;
+import lpII.exception.DispositivoNotFoundExceptionMapper;
+import lpII.exception.VeiculoNotFoundException;
+import lpII.model.*;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;
@@ -41,17 +42,36 @@ public class DispositivoService {
     }
 
     public MonitorEntity findMonitorById(Long id) {
-        return (MonitorEntity) DispositivoEntity.findByIdOptional(id)
-                .orElseThrow(DispositivoNotFoundExceptio::new);
+        DispositivoEntity dispositivo = DispositivoEntity.findById(id);
+        validaDispositivoNull(dispositivo == null, "Não foi encontrado dispositivo com o id: " + id);
+
+        validaDispositivoNull(!(dispositivo instanceof MonitorEntity), "O dispositivo encontrado de id: " + id + " não é um monitor.");
+
+        return (MonitorEntity) dispositivo;
     }
+
     public NotebookEntity findNotebookById(Long id) {
-        return (NotebookEntity) DispositivoEntity.findByIdOptional(id)
-                .orElseThrow(DispositivoNotFoundExceptio::new);
+        DispositivoEntity dispositivo = DispositivoEntity.findById(id);
+        validaDispositivoNull(dispositivo == null, "Não foi encontrado dispositivo com o id: " + id);
+
+        validaDispositivoNull(!(dispositivo instanceof NotebookEntity), "O dispositivo encontrado de id: " + id + " não é um notebook.");
+
+        return (NotebookEntity) dispositivo;
     }
 
     public CelularEntity findCelularById(Long id) {
-        return (CelularEntity) DispositivoEntity.findByIdOptional(id)
-                .orElseThrow(DispositivoNotFoundExceptio::new);
+        DispositivoEntity dispositivo = DispositivoEntity.findById(id);
+        validaDispositivoNull(dispositivo == null, "Não foi encontrado dispositivo com o id: " + id);
+
+        validaDispositivoNull(!(dispositivo instanceof CelularEntity), "O dispositivo encontrado de id: " + id + " não é um celular.");
+
+        return (CelularEntity) dispositivo;
+    }
+
+    private void validaDispositivoNull(boolean dispositivo, String id) {
+        if(dispositivo) {
+            throw new ApiException(id, Response.Status.NOT_FOUND);
+        }
     }
 
     @Transactional

@@ -5,7 +5,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.core.Response;
 import lpII.dto.veiculo.VeiculoNovoDTO;
+import lpII.exception.ApiException;
 import lpII.exception.VeiculoNotFoundException;
 import lpII.model.CaminhaoEntity;
 import lpII.model.CarroEntity;
@@ -41,19 +43,38 @@ public class VeiculoService {
     }
 
     public CarroEntity findCarroById(Long id) {
-        return (CarroEntity)VeiculoEntity.findByIdOptional(id)
-                .orElseThrow(VeiculoNotFoundException::new);
+        VeiculoEntity veiculo = VeiculoEntity.findById(id);
+        validaVeiculoNull(veiculo == null, "Não foi encontrado veiculo com o id: " + id);
+
+        validaVeiculoNull(!(veiculo instanceof CarroEntity), "O veículo encontrado de id: " + id + " não é um carro.");
+
+        return (CarroEntity) veiculo;
     }
 
     public MotoEntity findMotoById(Long id) {
-        return (MotoEntity)VeiculoEntity.findByIdOptional(id)
-                .orElseThrow(VeiculoNotFoundException::new);
+        VeiculoEntity veiculo = VeiculoEntity.findById(id);
+        validaVeiculoNull(veiculo == null, "Não foi encontrado veiculo com o id: " + id);
+
+        validaVeiculoNull(!(veiculo instanceof MotoEntity), "O veículo encontrado de id: " + id + " não é uma moto.");
+
+        return (MotoEntity) veiculo;
     }
 
     public CaminhaoEntity findCaminhaoById(Long id) {
-        return (CaminhaoEntity) VeiculoEntity.findByIdOptional(id)
-                .orElseThrow(VeiculoNotFoundException::new);
+        VeiculoEntity veiculo = VeiculoEntity.findById(id);
+        validaVeiculoNull(veiculo == null, "Não foi encontrado veiculo com o id: " + id);
+
+        validaVeiculoNull(!(veiculo instanceof CaminhaoEntity), "O veículo encontrado de id: " + id + " não é um caminhão.");
+
+        return (CaminhaoEntity) veiculo;
     }
+
+    private void validaVeiculoNull(boolean veiculo, String id) {
+        if (veiculo) {
+            throw new ApiException(id, Response.Status.NOT_FOUND);
+        }
+    }
+
 
     @Transactional
     public <T extends PanacheEntityBase> VeiculoNovoDTO atualizarVeiculo(Long id,
